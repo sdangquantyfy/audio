@@ -1,0 +1,28 @@
+rke installed 
+
+k8s installation
+
+
+
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: rabbitmqcluster-uat
+  namespace: uat
+spec:
+  replicas: 1
+  image: rabbitmq:3.9.13-management
+  service:
+    type: NodePort
+  override:
+    service:
+      spec:
+        ports:
+          - name: http
+            protocol: TCP
+            port: 15672
+            targetPort: 15672
+            nodePort: 31203
+  persistence:
+    storageClassName: longhorn
